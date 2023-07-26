@@ -51,6 +51,55 @@ struct PersistenceController {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        container.viewContext.automaticallyMergesChangesFromParent = true
+//        container.viewContext.automaticallyMergesChangesFromParent = true
+    }
+    
+    func saveChanges() {
+        let context = container.viewContext
+
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                print("Could not save changes to Core Data.", error.localizedDescription)
+            }
+        }
+    }
+    
+    func create(title: String, desc: String, dueDate: Date) {
+        // create a NSManagedObject, will be saved to DB later
+        let entity = TaskEntityList(context: container.viewContext)
+        // attach value to the entity’s attributes
+        entity.id = UUID()
+        entity.title = title
+        entity.desc = desc
+        entity.dueDate = dueDate
+        // save changes to DB
+        saveChanges()
+    }
+    
+    func read(predicateFormat: String? = nil, fetchLimit: Int? = nil) -> [TaskEntityList] {
+        // create a temp array to save fetched notes
+        var results: [TaskEntityList] = []
+        // initialize the fetch request
+        let request = NSFetchRequest<TaskEntityList>(entityName: "TaskEntityList")
+
+        // define filter and/or limit if needed
+        if predicateFormat != nil {
+            request.predicate = NSPredicate(format: predicateFormat!)
+        }
+        if fetchLimit != nil {
+            request.fetchLimit = fetchLimit!
+        }
+
+        // fetch with the request
+        do {
+            results = try container.viewContext.fetch(request)
+        } catch {
+            print("Could not fetch notes from Core Data.")
+        }
+
+        // return results
+        return results
     }
 }

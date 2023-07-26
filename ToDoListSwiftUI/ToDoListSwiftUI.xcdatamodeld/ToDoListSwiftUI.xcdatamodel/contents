@@ -4,10 +4,10 @@
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="TaskEntityList" representedClassName="TaskEntityList" syncable="YES">
-        <attribute name="desc" optional="YES" attributeType="String" defaultValueString="Des"/>
-        <attribute name="dueDate" optional="YES" attributeType="Date" defaultDateTimeInterval="711947040" usesScalarValueType="NO"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="title" optional="YES" attributeType="String" defaultValueString="Title"/>
+        <attribute name="desc" attributeType="String"/>
+        <attribute name="dueDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String"/>
     </entity>
     <elements>
         <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>

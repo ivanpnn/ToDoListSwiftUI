@@ -10,33 +10,42 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    
+    @State private var showNewTaskView: Bool = false
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
+    
+    @ObservedObject var vm: ViewModel = ViewModel()
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+                if vm.tasks.count > 0 {
+                    ForEach(vm.tasks) { item in
+                        NavigationLink {
+                            Text("Name = \(item.title), Desc = \(item.desc), Due Date = \(item.dueDate)")
+                        } label: {
+                            Text("Name = \(item.title), Desc = \(item.desc), Due Date = \(item.dueDate)")
+                        }
                     }
+                    .onDelete(perform: deleteItems)
                 }
-                .onDelete(perform: deleteItems)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
+                    Button(action: showTaskManagerView) {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
+            }
+            .sheet(isPresented: $showNewTaskView) {
+                TaskManagerView(vm: self.vm)
             }
             Text("Select an item")
         }
@@ -71,6 +80,12 @@ struct ContentView: View {
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
+    }
+}
+
+extension ContentView {
+    private func showTaskManagerView() {
+        self.showNewTaskView = true
     }
 }
 

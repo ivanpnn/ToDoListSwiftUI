@@ -17,10 +17,10 @@ extension TaskEntityList {
         return NSFetchRequest<TaskEntityList>(entityName: "TaskEntityList")
     }
 
-    @NSManaged public var desc: String?
-    @NSManaged public var dueDate: Date?
-    @NSManaged public var title: String?
-    @NSManaged public var id: UUID?
+    @NSManaged public var desc: String
+    @NSManaged public var dueDate: Date
+    @NSManaged public var title: String
+    @NSManaged public var id: UUID
 
 }
 
