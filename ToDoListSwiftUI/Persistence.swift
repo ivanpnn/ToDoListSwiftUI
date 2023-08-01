@@ -70,7 +70,7 @@ struct PersistenceController {
         // create a NSManagedObject, will be saved to DB later
         let entity = TaskEntityList(context: container.viewContext)
         // attach value to the entity’s attributes
-        entity.id = UUID()
+        entity.myId = UUID()
         entity.title = title
         entity.desc = desc
         entity.dueDate = dueDate
@@ -101,5 +101,10 @@ struct PersistenceController {
 
         // return results
         return results
+    }
+    
+    func delete(_ entity: TaskEntityList) {
+        container.viewContext.delete(entity)
+        saveChanges()
     }
 }

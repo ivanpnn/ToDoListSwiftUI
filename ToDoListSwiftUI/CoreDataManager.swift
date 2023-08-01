@@ -25,4 +25,9 @@ class ViewModel: ObservableObject {
     func getAllTask() {
         tasks = dataService.read()
     }
+    
+    func deleteTask(task: TaskEntityList) {
+        dataService.delete(task)
+        getAllTask()
+    }
 }

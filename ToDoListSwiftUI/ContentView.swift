@@ -25,13 +25,8 @@ struct ContentView: View {
             List {
                 if vm.tasks.count > 0 {
                     ForEach(vm.tasks) { item in
-                        NavigationLink {
-                            Text("Name = \(item.title), Desc = \(item.desc), Due Date = \(item.dueDate)")
-                        } label: {
-                            Text("Name = \(item.title), Desc = \(item.desc), Due Date = \(item.dueDate)")
-                        }
+                        TaskListCell(task: item, vm: vm)
                     }
-                    .onDelete(perform: deleteItems)
                 }
             }
             .toolbar {
