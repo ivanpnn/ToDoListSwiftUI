@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct TaskManagerView: View {
     
@@ -52,6 +53,9 @@ struct TaskManagerView: View {
                         .padding()
                         .background(Color(UIColor.tertiarySystemFill))
                         .cornerRadius(5)
+                        .onReceive(Just(taskNameField)) { _ in
+                            limitTextOnTitle(24)
+                        }
                     
                     // Task Description Section
                     Text("Task Description")
@@ -61,6 +65,9 @@ struct TaskManagerView: View {
                         .padding()
                         .background(Color(UIColor.tertiarySystemFill))
                         .cornerRadius(5)
+                        .onReceive(Just(taskDescriptionField)) { _ in
+                            limitTextOnDescription(120)
+                        }
                         
                     // Task Date Section
                     Text("Date")
@@ -132,6 +139,18 @@ extension TaskManagerView {
     
     private func closeView() {
         self.presentationMode.wrappedValue.dismiss()
+    }
+    
+    private func limitTextOnDescription(_ upper: Int) {
+        if taskDescriptionField.count > upper {
+            taskDescriptionField = String(taskDescriptionField.prefix(upper))
+        }
+    }
+    
+    private func limitTextOnTitle(_ upper: Int) {
+        if taskNameField.count > upper {
+            taskNameField = String(taskNameField.prefix(upper))
+        }
     }
     
 }

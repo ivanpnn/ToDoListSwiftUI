@@ -28,6 +28,7 @@ struct TaskListCell: View {
                     if !task.isFault {
                         Text("Due: \(task.dueDate , formatter: itemFormatter)")
                             .padding(1)
+                            .foregroundColor(.black)
                     }
                 }
                 Spacer()

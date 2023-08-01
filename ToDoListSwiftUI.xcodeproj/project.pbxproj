@@ -16,6 +16,7 @@
 		FA7C187B2A7897AB00E8C7A7 /* TaskListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7C187A2A7897AB00E8C7A7 /* TaskListCell.swift */; };
 		FA7C187D2A78C5DF00E8C7A7 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7C187C2A78C5DF00E8C7A7 /* DataError.swift */; };
 		FA7C187F2A78C61300E8C7A7 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7C187E2A78C61300E8C7A7 /* ErrorHandling.swift */; };
+		FA7C18812A78D8A500E8C7A7 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7C18802A78D8A500E8C7A7 /* EmptyView.swift */; };
 		FA7D97BA2A71039100D61DCA /* TaskManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7D97B92A71039100D61DCA /* TaskManagerView.swift */; };
 		FA7D97BC2A7105CD00D61DCA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7D97BB2A7105CD00D61DCA /* CoreDataManager.swift */; };
 		FAA3815B2A6F723300E9A965 /* TaskEntityList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA381592A6F723300E9A965 /* TaskEntityList+CoreDataClass.swift */; };
@@ -33,6 +34,7 @@
 		FA7C187A2A7897AB00E8C7A7 /* TaskListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCell.swift; sourceTree = "<group>"; };
 		FA7C187C2A78C5DF00E8C7A7 /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		FA7C187E2A78C61300E8C7A7 /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
+		FA7C18802A78D8A500E8C7A7 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		FA7D97B92A71039100D61DCA /* TaskManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerView.swift; sourceTree = "<group>"; };
 		FA7D97BB2A7105CD00D61DCA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		FAA381592A6F723300E9A965 /* TaskEntityList+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TaskEntityList+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			children = (
 				FA18BE7A2A6F5A72005DD0E0 /* ToDoListSwiftUIApp.swift */,
 				FA18BE7C2A6F5A72005DD0E0 /* ContentView.swift */,
+				FA7C18802A78D8A500E8C7A7 /* EmptyView.swift */,
 				FA7D97B92A71039100D61DCA /* TaskManagerView.swift */,
 				FA7C187A2A7897AB00E8C7A7 /* TaskListCell.swift */,
 				FA18BE7E2A6F5A74005DD0E0 /* Assets.xcassets */,
@@ -168,6 +171,7 @@
 				FA18BE842A6F5A74005DD0E0 /* Persistence.swift in Sources */,
 				FA7C187B2A7897AB00E8C7A7 /* TaskListCell.swift in Sources */,
 				FA18BE872A6F5A74005DD0E0 /* ToDoListSwiftUI.xcdatamodeld in Sources */,
+				FA7C18812A78D8A500E8C7A7 /* EmptyView.swift in Sources */,
 				FAA3815C2A6F723300E9A965 /* TaskEntityList+CoreDataProperties.swift in Sources */,
 				FAA3815B2A6F723300E9A965 /* TaskEntityList+CoreDataClass.swift in Sources */,
 				FA7C187F2A78C61300E8C7A7 /* ErrorHandling.swift in Sources */,

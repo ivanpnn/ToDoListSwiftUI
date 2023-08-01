@@ -21,6 +21,8 @@ struct ContentView: View {
                     ForEach(vm.tasks) { item in
                         TaskListCell(task: item, vm: vm)
                     }
+                } else {
+                    EmptyView()
                 }
             }
             .toolbar {
