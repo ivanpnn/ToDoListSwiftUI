@@ -20,6 +20,20 @@ struct ContentView: View {
                 if vm.tasks.count > 0 {
                     ForEach(vm.tasks) { item in
                         TaskListCell(task: item, vm: vm)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .background(.clear)
+                                    .foregroundColor(.white)
+                                    .padding(
+                                        EdgeInsets(
+                                            top: 2,
+                                            leading: 10,
+                                            bottom: 2,
+                                            trailing: 10
+                                        )
+                                    )
+                            )
                     }
                 } else {
                     EmptyView()

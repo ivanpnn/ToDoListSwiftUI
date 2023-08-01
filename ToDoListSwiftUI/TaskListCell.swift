@@ -17,28 +17,34 @@ struct TaskListCell: View {
         Button {
             showTaskManagerView = true
         } label: {
-            HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 20.0) {
+            VStack (spacing: 10) {
+                HStack(alignment: .top) {
                     Text(task.title)
                         .foregroundColor(.black)
-                        .overlay(
-                            Capsule().stroke(.black, lineWidth: 0.75)
-                                .padding(-5)
-                        )
-                    if !task.isFault {
-                        Text("Due: \(task.dueDate , formatter: itemFormatter)")
-                            .padding(1)
-                            .foregroundColor(.black)
+                        .font(.custom("AppleSDGothicNeo-Bold", size: 24))
+                    Spacer()
+                }
+                HStack(alignment: .top) {
+                    Text(task.desc)
+                        .foregroundColor(.gray)
+                        .font(.custom("AppleSDGothicNeo-Bold", size: 18))
+                    Spacer()
+                }
+                if !task.isFault {
+                    HStack{
+                        Text("\(task.dueDate , formatter: itemFormatter)")
+                            .padding(0)
+                            .foregroundColor(.gray)
+                            .font(.custom("Futura-Medium", size: 14))
+                        Spacer()
+                        Text("\(task.dueDate , formatter: timeFormatter)")
+                            .padding(0)
+                            .multilineTextAlignment(.trailing)
+                            .foregroundColor(.gray)
+                            .font(.custom("Futura-Medium", size: 15))
                     }
                 }
-                Spacer()
-                Text(task.desc)
-                    .font(.footnote)
-                    .foregroundColor(.black)
-                    .frame(minWidth: 62)
-                    .multilineTextAlignment(.trailing)
             }
-
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             Button (role: .destructive) {
@@ -70,5 +76,11 @@ struct TaskListCell_Previews: PreviewProvider {
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd"
+    return formatter
+}()
+
+private let timeFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "HH:mm"
     return formatter
 }()
