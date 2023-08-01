@@ -12,6 +12,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var showNewTaskView: Bool = false
     @ObservedObject var vm: ViewModel = ViewModel()
+    @StateObject var errorHandling = ErrorHandling.shared
 
     var body: some View {
         NavigationView {
@@ -32,7 +33,11 @@ struct ContentView: View {
             .sheet(isPresented: $showNewTaskView) {
                 TaskManagerView(task: nil, vm: self.vm)
             }
-            Text("Select an item")
+            .alert(errorHandling.localizedError, isPresented: $errorHandling.hasError) {
+                Button("Ok") {
+                    errorHandling.dismissButton()
+                }
+            }
         }
     }
 }

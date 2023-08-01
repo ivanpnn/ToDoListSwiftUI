@@ -21,7 +21,7 @@ struct PersistenceController {
             try viewContext.save()
         } catch {
             let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            ErrorHandling.shared.handle(error: nsError)
         }
         return result
     }()
@@ -35,7 +35,7 @@ struct PersistenceController {
         }
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                ErrorHandling.shared.handle(error: error)
             }
         })
     }
@@ -47,30 +47,24 @@ struct PersistenceController {
             do {
                 try context.save()
             } catch {
-                print("Could not save changes to Core Data.", error.localizedDescription)
+                ErrorHandling.shared.handle(error: error)
             }
         }
     }
     
     func create(title: String, desc: String, dueDate: Date) {
-        // create a NSManagedObject, will be saved to DB later
         let entity = TaskEntityList(context: container.viewContext)
-        // attach value to the entity’s attributes
         entity.myId = UUID()
         entity.title = title
         entity.desc = desc
         entity.dueDate = dueDate
-        // save changes to DB
         saveChanges()
     }
     
     func read(predicateFormat: String? = nil, fetchLimit: Int? = nil) -> [TaskEntityList] {
-        // create a temp array to save fetched notes
         var results: [TaskEntityList] = []
-        // initialize the fetch request
         let request = NSFetchRequest<TaskEntityList>(entityName: "TaskEntityList")
 
-        // define filter and/or limit if needed
         if predicateFormat != nil {
             request.predicate = NSPredicate(format: predicateFormat!)
         }
@@ -78,21 +72,18 @@ struct PersistenceController {
             request.fetchLimit = fetchLimit!
         }
 
-        // fetch with the request
         do {
             results = try container.viewContext.fetch(request)
         } catch {
-            print("Could not fetch notes from Core Data.")
+            ErrorHandling.shared.handle(error: error)
         }
 
         return results
     }
     
     func update(entity: TaskEntityList, title: String? = nil, desc: String? = nil, dueDate: Date? = nil) {
-        // create a temp var to tell if an attribute is changed
         var hasChanges: Bool = false
 
-        // update the attributes if a value is passed into the function
         if title != nil {
             entity.title = title!
             hasChanges = true
@@ -106,7 +97,6 @@ struct PersistenceController {
             hasChanges = true
         }
 
-        // save changes if any
         if hasChanges {
             saveChanges()
         }

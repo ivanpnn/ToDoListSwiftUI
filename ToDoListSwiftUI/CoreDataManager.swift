@@ -16,7 +16,10 @@ class ViewModel: ObservableObject {
         getAllTask()
     }
 
-    func createTask(title: String, desc: String, dueDate: Date) {
+    func createTask(title: String, desc: String, dueDate: Date) throws {
+        guard !title.isEmpty else {
+            throw DataError.taskFieldIsEmpry
+        }
         dataService.create(title: title, desc: desc, dueDate: dueDate)
         getAllTask()
     }
@@ -30,7 +33,10 @@ class ViewModel: ObservableObject {
         getAllTask()
     }
     
-    func updateTask(task: TaskEntityList, title: String? = nil, desc: String? = nil, dueDate: Date? = nil) {
+    func updateTask(task: TaskEntityList, title: String? = nil, desc: String? = nil, dueDate: Date? = nil) throws {
+        guard let title = title, !title.isEmpty else {
+            throw DataError.taskFieldIsEmpry
+        }
         dataService.update(entity: task, title: title, desc: desc, dueDate: dueDate)
         getAllTask()
     }

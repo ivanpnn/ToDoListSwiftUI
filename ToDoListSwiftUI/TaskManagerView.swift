@@ -23,6 +23,8 @@ struct TaskManagerView: View {
 
     @ObservedObject var vm: ViewModel
     
+    @StateObject var errorHandling = ErrorHandling.shared
+    
     public init(task: TaskEntityList?, vm: ViewModel) {
         self.task = task
         self.vm = vm
@@ -92,6 +94,11 @@ struct TaskManagerView: View {
         .alert(errorMessage, isPresented: $showError) {
             Button("Ok", role: .cancel) {}
         }
+        .alert(errorHandling.localizedError, isPresented: $errorHandling.hasError) {
+            Button("Ok") {
+                errorHandling.dismissButton()
+            }
+        }
     }
 }
 
@@ -99,13 +106,23 @@ extension TaskManagerView {
     private func addTask() {
         if isEditMode {
             guard task != nil else {
+                showError(DataError.unknownError)
                 return
             }
-            vm.updateTask(task: task!, title: taskNameField, desc: taskDescriptionField, dueDate: date)
+            do {
+                try vm.updateTask(task: task!, title: taskNameField, desc: taskDescriptionField, dueDate: date)
+                closeView()
+            } catch {
+                showError(error)
+            }
         } else {
-            vm.createTask(title: taskNameField, desc: taskDescriptionField, dueDate: date)
+            do {
+                try vm.createTask(title: taskNameField, desc: taskDescriptionField, dueDate: date)
+                closeView()
+            } catch {
+                showError(error)
+            }
         }
-        closeView()
     }
     
     private func showError(_ error: Error) {
