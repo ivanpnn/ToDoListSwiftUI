@@ -17,12 +17,32 @@ struct TaskManagerView: View {
     @State var taskNameField: String = ""
     @State var taskDescriptionField: String = ""
     
+    var task: TaskEntityList?
+    var titleBar: String  = String()
+    var isEditMode: Bool = false
+
     @ObservedObject var vm: ViewModel
+    
+    public init(task: TaskEntityList?, vm: ViewModel) {
+        self.task = task
+        self.vm = vm
+        
+        if self.task != nil {
+            self.titleBar = "Edit Task"
+            _taskNameField = State(initialValue: task!.title)
+            _taskDescriptionField = State(initialValue: task!.desc)
+            _date = State(initialValue: task!.dueDate)
+            isEditMode = true
+        } else {
+            self.titleBar = "New Task"
+        }
+    }
         
     var body: some View {
         NavigationView {
             ScrollView (.vertical, showsIndicators: true) {
                 VStack(alignment: .leading, spacing: 15.0) {
+                    // Task Name Section
                     Text("Task Name")
                         .font(.subheadline)
                         .padding(.bottom, -10.0)
@@ -30,6 +50,8 @@ struct TaskManagerView: View {
                         .padding()
                         .background(Color(UIColor.tertiarySystemFill))
                         .cornerRadius(5)
+                    
+                    // Task Description Section
                     Text("Task Description")
                         .font(.subheadline)
                         .padding(.bottom, -10.0)
@@ -38,7 +60,7 @@ struct TaskManagerView: View {
                         .background(Color(UIColor.tertiarySystemFill))
                         .cornerRadius(5)
                         
-                    
+                    // Task Date Section
                     Text("Date")
                         .font(.subheadline)
                         .padding(.bottom, -10.0)
@@ -60,7 +82,7 @@ struct TaskManagerView: View {
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 30)
-                .navigationBarTitle("New Task", displayMode: .inline)
+                .navigationBarTitle(titleBar, displayMode: .inline)
                 .navigationBarItems(trailing:
                   Button(action: closeView) {
                     Image(systemName: "xmark")
@@ -75,7 +97,14 @@ struct TaskManagerView: View {
 
 extension TaskManagerView {
     private func addTask() {
-        vm.createTask(title: taskNameField, desc: taskDescriptionField, dueDate: date)
+        if isEditMode {
+            guard task != nil else {
+                return
+            }
+            vm.updateTask(task: task!, title: taskNameField, desc: taskDescriptionField, dueDate: date)
+        } else {
+            vm.createTask(title: taskNameField, desc: taskDescriptionField, dueDate: date)
+        }
         closeView()
     }
     
@@ -92,7 +121,7 @@ extension TaskManagerView {
 
 struct TaskManagerView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskManagerView(vm: ViewModel())
+        TaskManagerView(task: TaskEntityList(), vm: ViewModel())
     }
 }
 

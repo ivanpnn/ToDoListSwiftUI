@@ -8,7 +8,6 @@
 import Foundation
 
 class ViewModel: ObservableObject {
-    // save fetched notes for view loading
     @Published var tasks: [TaskEntityList] = []
 
     let dataService = PersistenceController.shared
@@ -28,6 +27,11 @@ class ViewModel: ObservableObject {
     
     func deleteTask(task: TaskEntityList) {
         dataService.delete(task)
+        getAllTask()
+    }
+    
+    func updateTask(task: TaskEntityList, title: String? = nil, desc: String? = nil, dueDate: Date? = nil) {
+        dataService.update(entity: task, title: title, desc: desc, dueDate: dueDate)
         getAllTask()
     }
 }

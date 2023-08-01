@@ -10,14 +10,10 @@ import SwiftUI
 struct TaskListCell: View {
     
     @ObservedObject var task: TaskEntityList
-    
-    @State private var showTaskManagerView = false
-    
     @ObservedObject var vm: ViewModel
+    @State private var showTaskManagerView = false
 
-    
     var body: some View {
-        
         Button {
             showTaskManagerView = true
         } label: {
@@ -53,6 +49,7 @@ struct TaskListCell: View {
             }
         }
         .sheet(isPresented: $showTaskManagerView) {
+            TaskManagerView(task: task, vm: vm)
         }
     }
 }
