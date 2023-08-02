@@ -52,6 +52,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA0545612A7A017A005CF2F1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA7C187C2A78C5DF00E8C7A7 /* DataError.swift */,
+				FAA381592A6F723300E9A965 /* TaskEntityList+CoreDataClass.swift */,
+				FAA3815A2A6F723300E9A965 /* TaskEntityList+CoreDataProperties.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FA0545622A7A01B1005CF2F1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA18BE7C2A6F5A72005DD0E0 /* ContentView.swift */,
+				FA7C18802A78D8A500E8C7A7 /* EmptyView.swift */,
+				FA7D97B92A71039100D61DCA /* TaskManagerView.swift */,
+				FA7C187A2A7897AB00E8C7A7 /* TaskListCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA0545632A7A01C1005CF2F1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FA18BE832A6F5A74005DD0E0 /* Persistence.swift */,
+				FA7D97BB2A7105CD00D61DCA /* CoreDataManager.swift */,
+				FA7C187E2A78C61300E8C7A7 /* ErrorHandling.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FA0545642A7A01DA005CF2F1 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FA18BE7A2A6F5A72005DD0E0 /* ToDoListSwiftUIApp.swift */,
+				FA18BE7E2A6F5A74005DD0E0 /* Assets.xcassets */,
+				FA18BE852A6F5A74005DD0E0 /* ToDoListSwiftUI.xcdatamodeld */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		FA18BE6E2A6F5A72005DD0E0 = {
 			isa = PBXGroup;
 			children = (
@@ -71,19 +112,10 @@
 		FA18BE792A6F5A72005DD0E0 /* ToDoListSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				FA18BE7A2A6F5A72005DD0E0 /* ToDoListSwiftUIApp.swift */,
-				FA18BE7C2A6F5A72005DD0E0 /* ContentView.swift */,
-				FA7C18802A78D8A500E8C7A7 /* EmptyView.swift */,
-				FA7D97B92A71039100D61DCA /* TaskManagerView.swift */,
-				FA7C187A2A7897AB00E8C7A7 /* TaskListCell.swift */,
-				FA18BE7E2A6F5A74005DD0E0 /* Assets.xcassets */,
-				FA18BE832A6F5A74005DD0E0 /* Persistence.swift */,
-				FAA381592A6F723300E9A965 /* TaskEntityList+CoreDataClass.swift */,
-				FAA3815A2A6F723300E9A965 /* TaskEntityList+CoreDataProperties.swift */,
-				FA7D97BB2A7105CD00D61DCA /* CoreDataManager.swift */,
-				FA7C187C2A78C5DF00E8C7A7 /* DataError.swift */,
-				FA7C187E2A78C61300E8C7A7 /* ErrorHandling.swift */,
-				FA18BE852A6F5A74005DD0E0 /* ToDoListSwiftUI.xcdatamodeld */,
+				FA0545642A7A01DA005CF2F1 /* Utils */,
+				FA0545632A7A01C1005CF2F1 /* ViewModel */,
+				FA0545622A7A01B1005CF2F1 /* View */,
+				FA0545612A7A017A005CF2F1 /* Model */,
 				FA18BE802A6F5A74005DD0E0 /* Preview Content */,
 			);
 			path = ToDoListSwiftUI;

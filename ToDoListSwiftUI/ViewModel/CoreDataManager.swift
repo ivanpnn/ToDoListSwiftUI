@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ViewModel: ObservableObject {
+class CoreDataManager: ObservableObject {
     @Published var tasks: [TaskEntityList] = []
 
     let dataService = PersistenceController.shared

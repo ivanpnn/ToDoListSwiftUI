@@ -11,7 +11,7 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var showNewTaskView: Bool = false
-    @ObservedObject var vm: ViewModel = ViewModel()
+    @ObservedObject var vm: CoreDataManager = CoreDataManager()
     @StateObject var errorHandling = ErrorHandling.shared
 
     var body: some View {

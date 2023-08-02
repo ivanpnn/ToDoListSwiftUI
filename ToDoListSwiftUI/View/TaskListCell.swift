@@ -10,7 +10,7 @@ import SwiftUI
 struct TaskListCell: View {
     
     @ObservedObject var task: TaskEntityList
-    @ObservedObject var vm: ViewModel
+    @ObservedObject var vm: CoreDataManager
     @State private var showTaskManagerView = false
 
     var body: some View {
@@ -83,7 +83,7 @@ struct TaskListCell_Previews: PreviewProvider {
         task.desc = "A Task Description"
         task.dueDate = Date()
         
-        return TaskListCell(task: task, vm: ViewModel()).previewLayout(.sizeThatFits).padding()
+        return TaskListCell(task: task, vm: CoreDataManager()).previewLayout(.sizeThatFits).padding()
     }
 }
 
@@ -113,7 +113,6 @@ struct CheckboxToggleStyle: ToggleStyle {
                 }
                 .onTapGesture {
                     withAnimation(.spring(response: 0.25, dampingFraction: 0.25, blendDuration: 0.25)) {
-//                        configuration.isOn.toggle()
                         self.block()
                     }
                 }

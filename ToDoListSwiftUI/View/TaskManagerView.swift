@@ -15,24 +15,24 @@ struct TaskManagerView: View {
     @State var showError = false
     @State var errorMessage: String = "Unknown error"
     @State var date = Date.now
-    @State var taskNameField: String = ""
+    @State var taskTitleField: String = ""
     @State var taskDescriptionField: String = ""
     
     var task: TaskEntityList?
     var titleBar: String  = String()
     var isEditMode: Bool = false
 
-    @ObservedObject var vm: ViewModel
+    @ObservedObject var vm: CoreDataManager
     
     @StateObject var errorHandling = ErrorHandling.shared
     
-    public init(task: TaskEntityList?, vm: ViewModel) {
+    public init(task: TaskEntityList?, vm: CoreDataManager) {
         self.task = task
         self.vm = vm
         
         if self.task != nil {
             self.titleBar = "Edit Task"
-            _taskNameField = State(initialValue: task!.title)
+            _taskTitleField = State(initialValue: task!.title)
             _taskDescriptionField = State(initialValue: task!.desc)
             _date = State(initialValue: task!.dueDate)
             isEditMode = true
@@ -49,11 +49,11 @@ struct TaskManagerView: View {
                     Text("Task Name")
                         .font(.subheadline)
                         .padding(.bottom, -10.0)
-                    TextField("Enter your task name", text: $taskNameField)
+                    TextField("Enter your task name", text: $taskTitleField)
                         .padding()
                         .background(Color(UIColor.tertiarySystemFill))
                         .cornerRadius(5)
-                        .onReceive(Just(taskNameField)) { _ in
+                        .onReceive(Just(taskTitleField)) { _ in
                             limitTextOnTitle(24)
                         }
                     
@@ -117,14 +117,14 @@ extension TaskManagerView {
                 return
             }
             do {
-                try vm.updateTask(task: task!, title: taskNameField, desc: taskDescriptionField, dueDate: date, taskDone: task!.taskDone)
+                try vm.updateTask(task: task!, title: taskTitleField, desc: taskDescriptionField, dueDate: date, taskDone: task!.taskDone)
                 closeView()
             } catch {
                 showError(error)
             }
         } else {
             do {
-                try vm.createTask(title: taskNameField, desc: taskDescriptionField, dueDate: date)
+                try vm.createTask(title: taskTitleField, desc: taskDescriptionField, dueDate: date)
                 closeView()
             } catch {
                 showError(error)
@@ -148,8 +148,8 @@ extension TaskManagerView {
     }
     
     private func limitTextOnTitle(_ upper: Int) {
-        if taskNameField.count > upper {
-            taskNameField = String(taskNameField.prefix(upper))
+        if taskTitleField.count > upper {
+            taskTitleField = String(taskTitleField.prefix(upper))
         }
     }
     
@@ -157,7 +157,7 @@ extension TaskManagerView {
 
 struct TaskManagerView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskManagerView(task: TaskEntityList(), vm: ViewModel())
+        TaskManagerView(task: TaskEntityList(), vm: CoreDataManager())
     }
 }
 
