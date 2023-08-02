@@ -21,6 +21,7 @@ extension TaskEntityList {
     @NSManaged public var dueDate: Date
     @NSManaged public var title: String
     @NSManaged public var myId: UUID
+    @NSManaged public var taskDone: Bool
 
 }
 

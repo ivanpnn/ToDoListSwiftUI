@@ -33,11 +33,11 @@ class ViewModel: ObservableObject {
         getAllTask()
     }
     
-    func updateTask(task: TaskEntityList, title: String? = nil, desc: String? = nil, dueDate: Date? = nil) throws {
+    func updateTask(task: TaskEntityList, title: String? = nil, desc: String? = nil, dueDate: Date? = nil, taskDone: Bool) throws {
         guard let title = title, !title.isEmpty else {
             throw DataError.taskFieldIsEmpry
         }
-        dataService.update(entity: task, title: title, desc: desc, dueDate: dueDate)
+        dataService.update(entity: task, title: title, desc: desc, dueDate: dueDate, taskDone: taskDone)
         getAllTask()
     }
 }

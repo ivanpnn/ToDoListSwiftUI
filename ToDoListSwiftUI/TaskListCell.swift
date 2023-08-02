@@ -23,12 +23,26 @@ struct TaskListCell: View {
                         .foregroundColor(.black)
                         .font(.custom("AppleSDGothicNeo-Bold", size: 24))
                     Spacer()
+                    Toggle("", isOn: $task.taskDone)
+                        .toggleStyle(CheckboxToggleStyle(block: {
+                            do {
+                                try vm.updateTask(task: task, title: task.title, desc: task.desc, dueDate: task.dueDate, taskDone: !task.taskDone)
+                            } catch {
+                                ErrorHandling.shared.handle(error: error)
+                            }
+                        }))
                 }
-                HStack(alignment: .top) {
+                HStack(alignment: .center) {
                     Text(task.desc)
                         .foregroundColor(.gray)
                         .font(.custom("AppleSDGothicNeo-Bold", size: 18))
                     Spacer()
+                    if task.taskDone {
+                        Text("Completed!")
+                            .foregroundColor(.green)
+                            .font(.custom("AppleSDGothicNeo-Bold", size: 18))
+                            .transition(.scale)
+                    }
                 }
                 if !task.isFault {
                     HStack{
@@ -84,3 +98,26 @@ private let timeFormatter: DateFormatter = {
     formatter.dateFormat = "HH:mm"
     return formatter
 }()
+
+struct CheckboxToggleStyle: ToggleStyle {
+    var block: ()->(Void)
+    
+    func makeBody(configuration: Configuration) -> some View {
+        HStack {
+            RoundedRectangle(cornerRadius: 5.0)
+                .stroke(lineWidth: 2)
+                .frame(width: 25, height: 25)
+                .cornerRadius(5.0)
+                .overlay {
+                    Image(systemName: configuration.isOn ?"checkmark" : "")
+                }
+                .onTapGesture {
+                    withAnimation(.spring(response: 0.25, dampingFraction: 0.25, blendDuration: 0.25)) {
+//                        configuration.isOn.toggle()
+                        self.block()
+                    }
+                }
+            configuration.label
+        }
+    }
+}

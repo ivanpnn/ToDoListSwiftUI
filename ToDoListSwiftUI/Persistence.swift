@@ -58,6 +58,7 @@ struct PersistenceController {
         entity.title = title
         entity.desc = desc
         entity.dueDate = dueDate
+        entity.taskDone = false
         saveChanges()
     }
     
@@ -81,7 +82,7 @@ struct PersistenceController {
         return results
     }
     
-    func update(entity: TaskEntityList, title: String? = nil, desc: String? = nil, dueDate: Date? = nil) {
+    func update(entity: TaskEntityList, title: String? = nil, desc: String? = nil, dueDate: Date? = nil, taskDone: Bool? = nil) {
         var hasChanges: Bool = false
 
         if title != nil {
@@ -94,6 +95,10 @@ struct PersistenceController {
         }
         if dueDate != nil {
             entity.dueDate = dueDate!
+            hasChanges = true
+        }
+        if taskDone != nil {
+            entity.taskDone = taskDone!
             hasChanges = true
         }
 

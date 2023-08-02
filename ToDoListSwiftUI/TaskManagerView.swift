@@ -117,7 +117,7 @@ extension TaskManagerView {
                 return
             }
             do {
-                try vm.updateTask(task: task!, title: taskNameField, desc: taskDescriptionField, dueDate: date)
+                try vm.updateTask(task: task!, title: taskNameField, desc: taskDescriptionField, dueDate: date, taskDone: task!.taskDone)
                 closeView()
             } catch {
                 showError(error)

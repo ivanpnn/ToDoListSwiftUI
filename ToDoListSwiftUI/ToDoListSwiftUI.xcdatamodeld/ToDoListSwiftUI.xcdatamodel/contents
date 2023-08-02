@@ -7,10 +7,11 @@
         <attribute name="desc" attributeType="String"/>
         <attribute name="dueDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="myId" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="taskDone" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String"/>
     </entity>
     <elements>
         <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
-        <element name="TaskEntityList" positionX="-63" positionY="-9" width="128" height="89"/>
+        <element name="TaskEntityList" positionX="-63" positionY="-9" width="128" height="104"/>
     </elements>
 </model>
